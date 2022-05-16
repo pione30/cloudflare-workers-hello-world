@@ -8,8 +8,14 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export default {
-  async fetch(request: Request): Promise<Response> {
-    return new Response("Hello World!");
-  },
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
+
+const handleRequest = async (request: Request): Promise<Response> => {
+  return new Response("Hello, worker!", {
+    headers: { "content-type": "text/plain" },
+  });
 };
+
+export {};
